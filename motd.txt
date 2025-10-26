@@ -36,5 +36,6 @@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @                                                                         @                                                                  
 @    Type ISPF to access the editor. FLAG-gNgqXW6Z6t07oewndLvZDGwqHK4     @
+@    To see the welcome message : EX 'MAYHEM.EXEC(WELCOME)'               @
 @                                                                         @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
