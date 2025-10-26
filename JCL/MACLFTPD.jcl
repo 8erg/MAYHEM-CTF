@@ -42,8 +42,8 @@ RX MVP UPDATE -D
 //SORTIN DD DSN=SYS1.SECURE.CNTL(PROFILES),DISP=SHR
 //       DD DATA,DLM=@@
 FACILITYFTPAUTH                                     USERS   READ
-DATASET DEFCON.*                                            READ
-DATASET WHITE.RABBIT                                        NONE
+DATASET MAYHEM.*                                            READ
+DATASET MAYHEM.OPS                                          NONE
 @@
 //*
 //* Update the RAKF database

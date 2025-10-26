@@ -159,6 +159,10 @@ create_pds = '''//*
 //MAYHEMOP DD  DSN=MAYHEM.OPS,DISP=(NEW,CATLG),
 //             UNIT=SYSDA,VOL=SER=PUB000,
 //             SPACE=(TRK,(3,3,3),RLSE),DCB=SYS1.MACLIB
+//FTPDDUMP DD  DSN=MAYHEM.FTPDDUMP,DISP=(NEW,CATLG),    
+//             UNIT=SYSDA,VOL=SER=PUB000,                          
+//             SPACE=(TRK,(10,5),RLSE),                              
+//             DCB=(DSORG=PS,RECFM=FB,LRECL=121,BLKSIZE=400)
 '''
 
 
