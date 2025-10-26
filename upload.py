@@ -174,11 +174,7 @@ create_pds = '''//*
 //* Create PDS to hold overflows
 //*
 //CREATEOF EXEC PGM=IEFBR14
-//OVERFLOW DD  DSN=MAYHEM.OVERFLOW,DISP=(NEW,CATLG),
-//             UNIT=SYSDA,VOL=SER=PUB000,
-//             SPACE=(TRK,(3,3,3),RLSE),
-//             DCB=(DSORG=PS,RECFM=FB,LRECL=400,BLKSIZE=400)
-//ARBAUTH  DD  DSN=MAYHEM.OVERFLOW.ARBAUTH,DISP=(NEW,CATLG),
+//ARBAUTH  DD  DSN=MAYHEM.ARBAUTH,DISP=(NEW,CATLG),
 //             UNIT=SYSDA,VOL=SER=PUB000,
 //             SPACE=(TRK,(3,3,3),RLSE),
 //             DCB=(DSORG=PS,RECFM=FB,LRECL=30000,BLKSIZE=30000)
@@ -205,13 +201,10 @@ jcl += create_pds
 
 print("*** Adding Source files ")
 
-with open("GETSPLOIT/hello.c", "r") as infile:
-    hellosrc = "./ ADD NAME=HELLO,LIST=ALL\n{}".format( infile.read() )
-
 with open("ARBAUTH/arbauth.jcl", "r") as infile:
     arbauthsrc = "./ ADD NAME=ARBAUTH,LIST=ALL\n{}".format( infile.read() )
 
-jcl += sources.format(sources=hellosrc+arbauthsrc+hint)
+jcl += sources.format(sources=arbauthsrc+hint)
 
 with open("matrix.txt", "r") as infile:
     jcl += easteregg.format( sources = "./ ADD NAME=SCRIPT,LIST=ALL\n{}".format( infile.read() ) )
