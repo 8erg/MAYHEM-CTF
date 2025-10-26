@@ -60,9 +60,10 @@
 ## Configuration
 
 #### Manually
-1. Launch MVSCE : `./start_mvs.sh`
+1. `cp extras/FTPD.MVP MVSCE/MVP/packages`
+2. Launch MVSCE : `./start_mvs.sh`
+3. `cat jcl/MACLFTPF.jcl|ncat --send-only -w1 127.0.0.1 3505`
 2. `cat JCL/logon_screen.jcl | ncat --send-only -w1 127.0.0.1 3505`
-3. `cat terminal.jcl | ncat --send-only -w1 127.0.0.1 3505`
 4. Run the python script : `./upload.py motd.txt`
 5. `cat upload.jcl | ncat --send-only -w1 127.0.0.1 3505`
 6. Press `quit` in hercules and start it again
