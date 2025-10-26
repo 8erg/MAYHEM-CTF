@@ -65,6 +65,9 @@
 7. Run the python script : `./upload.py motd.txt`
 8. `cat upload.jcl | ncat --send-only -w1 127.0.0.1 3505`
 
+>[!info] You can skip some steps by running : `until python3 -u automation.py --mvsce /MVSCE --initial; do echo "Failed, trying again"; done`
+
+
 >[!warning] 
 >You will need to restart hercules to see the changes
 

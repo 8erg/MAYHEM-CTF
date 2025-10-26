@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 
-## requires git clone https://github.com/jake-mainframe/ARBAUTH
-
 # This will create MAYHEM.* datasets
 # Replaced the LOGON clist with motd.txt
-# Adds users DC01 through DC30 to RAKF
 
 import sys
 import math
@@ -70,30 +67,6 @@ CALL 'SYSGEN.ISPF.LLIB(ISPF)'
 FREE  F(ISPCLIB,ISPLLIB,ISPMLIB,ISPPLIB,ISPSLIB,ISPTABL,ISPTLIB)    
 FREE  F(ISPPROF,REVPROF)  
 ><
-//*
-//* Replace COMMND00 with custom
-//* Replace FTPD PARMLIB
-//*
-//NEWCOMND EXEC PGM=IEBUPDTE,PARM=NEW
-//SYSUT2   DD  DSN=SYS1.PARMLIB,DISP=OLD
-//SYSPRINT DD  SYSOUT=*
-//SYSIN    DD  *
-./ ADD NAME=COMMND00,LIST=ALL
-./ NUMBER NEW1=10,INCR=10
-COM='SEND 'AUTO COMMANDS IN COMMND00 BEING PROCESSED',CN=01'
-COM='START JES2,,,PARM='WARM,NOREQ''                        
-COM='START SETPFKEY,M=00'                                   
-COM='START FTPDDC30'                                          
-COM='START NET' 
-./ ADD NAME=FTPDPM00,LIST=ALL
-SRVPORT=2121
-SRVIP=ANY
-PASVADR=127,0,0,1
-PASVPORTS=31337-31347
-INSECURE=1
-AUTHUSER=IBMUSER
-PUB000,3380         PUBLIC DATASETS (PRIVATE)                                      
-./ ENDUP                                     
 '''
 
 sources = '''//*
@@ -153,10 +126,6 @@ create_pds = '''//*
 //* Create PDS to hold overflows
 //*
 //CREATEOF EXEC PGM=IEFBR14
-//ARBAUTH  DD  DSN=MAYHEM.ARBAUTH,DISP=(NEW,CATLG),
-//             UNIT=SYSDA,VOL=SER=PUB000,
-//             SPACE=(TRK,(3,3,3),RLSE),
-//             DCB=(DSORG=PS,RECFM=FB,LRECL=30000,BLKSIZE=30000)
 //SOURCE   DD  DSN=MAYHEM.SOURCE,DISP=(NEW,CATLG),
 //             UNIT=SYSDA,VOL=SER=PUB000,
 //             SPACE=(TRK,(3,3,3),RLSE),DCB=SYS1.MACLIB
@@ -166,24 +135,18 @@ create_pds = '''//*
 //MAYHEMOP DD  DSN=MAYHEM.OPS,DISP=(NEW,CATLG),
 //             UNIT=SYSDA,VOL=SER=PUB000,
 //             SPACE=(TRK,(3,3,3),RLSE),DCB=SYS1.MACLIB
-//FTPDDUMP DD  DSN=MAYHEM.FTPDDUMP,DISP=(NEW,CATLG),    
-//             UNIT=SYSDA,VOL=SER=PUB000,                          
-//             SPACE=(TRK,(10,5),RLSE),                              
-//             DCB=(DSORG=PS,RECFM=FB,LRECL=121,BLKSIZE=400)
 '''
 
 
-print("*** Creating MAYHEM.OVERFLOW and MAYHEM.SOURCE")
+print("*** CREATING MAYHEM PDS")
 
 
 jcl += create_pds
 
 print("*** Adding Source files ")
 
-with open("ARBAUTH/arbauth.jcl", "r") as infile:
-    arbauthsrc = "./ ADD NAME=ARBAUTH,LIST=ALL\n{}".format( infile.read() )
 
-jcl += sources.format(sources=arbauthsrc+hint)
+jcl += sources.format(sources=hint)
 
 with open("matrix.txt", "r") as infile:
     jcl += mayhemops.format( sources = "./ ADD NAME=SCRIPT,LIST=ALL\n{}".format( infile.read() ) )
@@ -202,12 +165,6 @@ for rexx_script in sorted(files):
         )
 
 jcl += rx
-
-print("*** Adding ARBAUTH/arbauth.jcl ")
-with open("ARBAUTH/arbauth.jcl", "r") as infile:
-    #ebcdic_jcl_to_upload += to_ebcdic(''.join(infile.readlines()[8:]))
-    jcl += (''.join(infile.readlines()[8:]))
-
 
 print("*** Writting jcl/upload.jcl")
 with open("JCL/upload.jcl", "w") as outfile:
