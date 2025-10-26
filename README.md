@@ -55,7 +55,8 @@
 1. `wget https://github.com/MVS-sysgen/sysgen/releases/download/v2.1.2/MVSCE.release.v2.1.2.tar`
 2. `tar -xvf MVSCE.release.v2.1.2.tar`
 
->[!info] After the installtion of hercules and getting MVSCE, move the folder inside here and then start it
+>[!info] 
+>After the installtion of hercules and getting MVSCE, move the folder inside here and then start it
 
 ## Configuration
 
