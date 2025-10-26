@@ -42,6 +42,6 @@
 
 ## Credits
 + I want to give big shoutouts to [@mainframed](https://github.com/mainframed) his resources provided a lot of insights on how to build the environment and opening my eyes about mainframe hacking.
-+ Also want to shoutout @moshix for his videos where he had a lot of tutorials about various things related to the mainframe.
++ Also want to shoutout [@moshix](https://github.com/moshix) for his videos where he had a lot of tutorials about various things related to the mainframe.
 + And finally we have to shoutout Jay Moseley who made everything possible with the MVS3.8.
 
