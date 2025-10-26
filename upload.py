@@ -130,7 +130,7 @@ execs = '''//*
 $$
 '''
 
-easteregg = '''//*
+mayhemops = '''//*
 //* Adds MAYHEM OPS GOALS
 //*
 //MAYHEM    EXEC PGM=IEBUPDTE,REGION=1024K,PARM=NEW
@@ -207,7 +207,7 @@ with open("ARBAUTH/arbauth.jcl", "r") as infile:
 jcl += sources.format(sources=arbauthsrc+hint)
 
 with open("matrix.txt", "r") as infile:
-    jcl += easteregg.format( sources = "./ ADD NAME=SCRIPT,LIST=ALL\n{}".format( infile.read() ) )
+    jcl += mayhemops.format( sources = "./ ADD NAME=SCRIPT,LIST=ALL\n{}".format( infile.read() ) )
 
 print("*** Adding REXX execs ")
 
