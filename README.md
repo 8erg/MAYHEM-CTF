@@ -66,6 +66,7 @@
 3. `cat JCL/MACLFTPD.jcl|ncat --send-only -w1 127.0.0.1 3505`
 4. `cat JCL/logon_screen.jcl | ncat --send-only -w1 127.0.0.1 3505`
 5. `cat JCL/terminals.jcl | ncat --send-only -w1 127.0.0.1 3505`
+6. `git clone https://github.com/jake-mainframe/ARBAUTH`
 6. Run the python script : `./upload.py motd.txt`
 7. `cat upload.jcl | ncat --send-only -w1 127.0.0.1 3505`
 8. Press `quit` in hercules and start it again

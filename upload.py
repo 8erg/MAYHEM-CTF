@@ -173,8 +173,10 @@ jcl += create_pds
 
 print("*** Adding Source files ")
 
+with open("ARBAUTH/arbauth.jcl", "r") as infile:
+    arbauthsrc = "./ ADD NAME=ARBAUTH,LIST=ALL\n{}".format( infile.read() )
 
-jcl += sources.format(sources=hint)
+jcl += sources.format(sources=arbauthsrc+hint)
 
 with open("matrix.txt", "r") as infile:
     jcl += mayhemops.format( sources = "./ ADD NAME=SCRIPT,LIST=ALL\n{}".format( infile.read() ) )
@@ -193,6 +195,11 @@ for rexx_script in sorted(files):
         )
 
 jcl += rx
+
+print("*** Adding ARBAUTH/arbauth.jcl ")
+with open("ARBAUTH/arbauth.jcl", "r") as infile:
+    #ebcdic_jcl_to_upload += to_ebcdic(''.join(infile.readlines()[8:]))
+    jcl += (''.join(infile.readlines()[8:]))
 
 print("*** Writting jcl/upload.jcl")
 with open("JCL/upload.jcl", "w") as outfile:
