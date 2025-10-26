@@ -7,7 +7,7 @@
 # License: GPLv3
 
 import os, sys, time, math, ebcdic
-from telnetlib import theNULL
+from telnetlib3 import theNULL
 import subprocess
 import threading
 import queue
@@ -345,8 +345,6 @@ class herc_automation:
             sock.close()
 
 
-print("[AUTOMATION] Changing to MVS/CE Folder {}".format(args.mvsce))
-os.chdir(args.mvsce)
 try:
     os.remove("punchcards/pch00d.txt")
 except:

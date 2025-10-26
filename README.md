@@ -55,21 +55,24 @@
 1. `wget https://github.com/MVS-sysgen/sysgen/releases/download/v2.1.2/MVSCE.release.v2.1.2.tar`
 2. `tar -xvf MVSCE.release.v2.1.2.tar`
 
-## Configuring the environment
-1. `cp packages/FTPD.MVP MVSCE/MVP/packages`
-2. Launch MVSCE : `./start_mvs.sh`
-3. `cat JCL/MACLFTPF.jcl | ncat --send-only -w1 127.0.0.1 3505`
-4. `cat JCL/logon_screen.jcl | ncat --send-only -w1 127.0.0.1 3505`
-5. `cat terminal.jcl | ncat --send-only -w1 127.0.0.1 3505`
-6. Clone the ARBAUTH repo: `git clone https://github.com/jake-mainframe/ARBAUTH`
-7. Run the python script : `./upload.py motd.txt`
-8. `cat upload.jcl | ncat --send-only -w1 127.0.0.1 3505`
+>[!info] After the installtion of hercules and getting MVSCE, move the folder inside here and then start it
 
->[!info] You can skip some steps by running : `until python3 -u automation.py --mvsce /MVSCE --initial; do echo "Failed, trying again"; done`
+## Configuration
 
+#### Manually
+1. Launch MVSCE : `./start_mvs.sh`
+2. `cat JCL/logon_screen.jcl | ncat --send-only -w1 127.0.0.1 3505`
+3. `cat terminal.jcl | ncat --send-only -w1 127.0.0.1 3505`
+4. Run the python script : `./upload.py motd.txt`
+5. `cat upload.jcl | ncat --send-only -w1 127.0.0.1 3505`
+6. Press `quit` in hercules and start it again
 
->[!warning] 
->You will need to restart hercules to see the changes
+#### With automation
+1. `pip3 install ebcdic --break-system-packages`
+2. `pip install telnetlib3 --break-system-packages`
+3. `./upload.py motd.txt`
+4. `until python3 -u automation.py --initial; do echo "Failed, trying again"; done`
+
 
 
 
