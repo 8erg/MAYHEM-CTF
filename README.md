@@ -36,10 +36,6 @@
 @@@@@          |__|_|  (____  / ____||___|  /\___  >__|_|  /          @@@@@ 
 @@@@@                \/     \/\/          \/     \/      \/           @@@@@           
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@                                                                         @                                                                  
-@    Type ISPF to access the editor. FLAG-gNgqXW6Z6t07oewndLvZDGwqHK4     @
-@    Type CALL '&SYSUID..LOAD(HELLO)' To Run the exploitable program      @
-@                                                                         @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ```
 ## Setting upMOUS
