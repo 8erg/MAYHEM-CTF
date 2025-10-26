@@ -35,18 +35,6 @@ REVINIT
 ><
 '''
 
-upload_file = '''//*
-//* Adding MAYHEM.OVERFLOW({member})
-//*
-//CRTEOVRF EXEC PGM=IEBGENER
-//SYSUT2   DD   DSN=MAYHEM.OVERFLOW({member}),DISP=SHR
-//SYSPRINT DD   SYSOUT=*
-//SYSIN    DD   DUMMY
-//SYSUT1   DD   DATA,DLM='{dlm}'
-::E {filename}
-{dlm}
-'''
-
 replace_ispf_clist = '''//*
 //* Replace the ISPF clist to get rid of annoying "FREE" messages
 //*
@@ -142,15 +130,6 @@ $$
 '''
 
 hint = "./ ADD NAME=MAYHEMOP,LIST=ALL\nI HOPE YOU UNDERSTOOD THE MESSAGE..."
-
-def upload_rdrprep_file(filename,member=False,dlm="><"):
-    '''Uses rdrprep to upload a Binary file'''
-    if not member:
-        member = filename.split(".")[0].upper()
-        if "/" in member:
-            member = member.split("/")[-1]
-    upload_file_jcl =  upload_file.format(filename=filename,member=member,dlm=dlm)
-    return upload_file_jcl
 
 # Creates JCL to upload OVERFLOW files
 jcl = ''
