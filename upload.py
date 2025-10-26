@@ -210,5 +210,5 @@ with open("ARBAUTH/arbauth.jcl", "r") as infile:
 
 
 print("*** Writting jcl/upload.jcl")
-with open("jcl/upload.jcl", "w") as outfile:
+with open("JCL/upload.jcl", "w") as outfile:
     outfile.write(jcl)

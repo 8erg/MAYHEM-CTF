@@ -65,9 +65,10 @@
 6. Clone the ARBAUTH repo: `git clone https://github.com/jake-mainframe/ARBAUTH`
 7. Run the python script : `./upload.py motd.txt`
 8. `cat upload.jcl | ncat --send-only -w1 127.0.0.1 3505`
-9. Install this : `git clone https://github.com/mvslovers/rdrprep`
-10. `git clone https://github.com/mvslovers/jcc` 
-11. `sudo dpkg --add-architecture i386 && apt-get update && apt-get install wine32:i386`
+
+>[!warning] 
+>You will need to restart hercules to see the changes
+
 
 
 
