@@ -20,6 +20,10 @@
 7. `./configure`
 8. `sudo make install`
 
+>[!warning] 
+>You need to restart your terminal before moving on to the next steps
+
+
 #### GET MVS
 1. `wget https://github.com/MVS-sysgen/sysgen/releases/download/v2.1.2/MVSCE.release.v2.1.2.tar`
 2. `tar -xvf MVSCE.release.v2.1.2.tar`
@@ -37,7 +41,7 @@
 
 
 ## Credits
-I want to give big shoutouts to @mainframed his resources provided a lot of insights on how to build the environment and opening my eyes about mainframe hacking.
-Also want to shoutout @moshix for his videos where he had a lot of tutorials about various things related to the mainframe.
-And finally we have to shoutout Jay Moseley who made everything possible with the MVS3.8.
++ I want to give big shoutouts to @mainframed his resources provided a lot of insights on how to build the environment and opening my eyes about mainframe hacking.
++ Also want to shoutout @moshix for his videos where he had a lot of tutorials about various things related to the mainframe.
++ And finally we have to shoutout Jay Moseley who made everything possible with the MVS3.8.
 
