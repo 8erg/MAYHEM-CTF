@@ -2,7 +2,7 @@
 
 ## requires git clone https://github.com/jake-mainframe/ARBAUTH
 
-# This will create DEFCON.* datasets
+# This will create MAYHEM.* datasets
 # Replaced the LOGON clist with motd.txt
 # Adds users DC01 through DC30 to RAKF
 
@@ -36,10 +36,10 @@ REVINIT
 '''
 
 upload_file = '''//*
-//* Adding DEFCON.OVERFLOW({member})
+//* Adding MAYHEM.OVERFLOW({member})
 //*
 //CRTEOVRF EXEC PGM=IEBGENER
-//SYSUT2   DD   DSN=DEFCON.OVERFLOW({member}),DISP=SHR
+//SYSUT2   DD   DSN=MAYHEM.OVERFLOW({member}),DISP=SHR
 //SYSPRINT DD   SYSOUT=*
 //SYSIN    DD   DUMMY
 //SYSUT1   DD   DATA,DLM='{dlm}'
@@ -109,39 +109,39 @@ PUB000,3380         PUBLIC DATASETS (PRIVATE)
 '''
 
 sources = '''//*
-//* Adds sources to DEFCON.source
+//* Adds sources to MAYHEM.source
 //*
 //SOURCES   EXEC PGM=IEBUPDTE,REGION=1024K,PARM=NEW
 //SYSPRINT  DD SYSOUT=*
-//SYSUT2    DD DSN=DEFCON.SOURCE,DISP=SHR
+//SYSUT2    DD DSN=MAYHEM.SOURCE,DISP=SHR
 //SYSIN     DD DATA,DLM=$$
 {sources}
 $$
 '''
 
 execs = '''//*
-//* Adds REXX scripts to DEFCON.EXEC
+//* Adds REXX scripts to MAYHEM.EXEC
 //*
 //REXXEXEC  EXEC PGM=IEBUPDTE,REGION=1024K,PARM=NEW
 //SYSPRINT  DD SYSOUT=*
-//SYSUT2    DD DSN=DEFCON.EXEC,DISP=SHR
+//SYSUT2    DD DSN=MAYHEM.EXEC,DISP=SHR
 //SYSIN     DD DATA,DLM=$$
 {execs}
 $$
 '''
 
 easteregg = '''//*
-//* Adds Easter Eggs
+//* Adds MAYHEM OPS GOALS
 //*
-//EASTER    EXEC PGM=IEBUPDTE,REGION=1024K,PARM=NEW
+//MAYHEM    EXEC PGM=IEBUPDTE,REGION=1024K,PARM=NEW
 //SYSPRINT  DD SYSOUT=*
-//SYSUT2    DD DSN=WHITE.RABBIT,DISP=SHR
+//SYSUT2    DD DSN=MAYHEM.OPS,DISP=SHR
 //SYSIN     DD DATA,DLM=$$
 {sources}
 $$
 '''
 
-hint = "./ ADD NAME=EASTREGG,LIST=ALL\nDid you follow the WHITE.RABBIT?"
+hint = "./ ADD NAME=MAYHEMOP,LIST=ALL\nI HOPE YOU UNDERSTOOD THE MESSAGE..."
 
 def upload_rdrprep_file(filename,member=False,dlm="><"):
     '''Uses rdrprep to upload a Binary file'''
@@ -174,38 +174,31 @@ create_pds = '''//*
 //* Create PDS to hold overflows
 //*
 //CREATEOF EXEC PGM=IEFBR14
-//OVERFLOW DD  DSN=DEFCON.OVERFLOW,DISP=(NEW,CATLG),
+//OVERFLOW DD  DSN=MAYHEM.OVERFLOW,DISP=(NEW,CATLG),
 //             UNIT=SYSDA,VOL=SER=PUB000,
 //             SPACE=(TRK,(3,3,3),RLSE),
 //             DCB=(DSORG=PS,RECFM=FB,LRECL=400,BLKSIZE=400)
-//ARBAUTH  DD  DSN=DEFCON.OVERFLOW.ARBAUTH,DISP=(NEW,CATLG),
+//ARBAUTH  DD  DSN=MAYHEM.OVERFLOW.ARBAUTH,DISP=(NEW,CATLG),
 //             UNIT=SYSDA,VOL=SER=PUB000,
 //             SPACE=(TRK,(3,3,3),RLSE),
 //             DCB=(DSORG=PS,RECFM=FB,LRECL=30000,BLKSIZE=30000)
-//SOURCE   DD  DSN=DEFCON.SOURCE,DISP=(NEW,CATLG),
+//SOURCE   DD  DSN=MAYHEM.SOURCE,DISP=(NEW,CATLG),
 //             UNIT=SYSDA,VOL=SER=PUB000,
 //             SPACE=(TRK,(3,3,3),RLSE),DCB=SYS1.MACLIB
-//EXEC     DD  DSN=DEFCON.EXEC,DISP=(NEW,CATLG),
+//EXEC     DD  DSN=MAYHEM.EXEC,DISP=(NEW,CATLG),
 //             UNIT=SYSDA,VOL=SER=PUB000,
 //             SPACE=(TRK,(3,3,3),RLSE),DCB=SYS2.EXEC
-//WHTERABT DD  DSN=WHITE.RABBIT,DISP=(NEW,CATLG),
+//MAYHEMOP DD  DSN=MAYHEM.OPS,DISP=(NEW,CATLG),
 //             UNIT=SYSDA,VOL=SER=PUB000,
 //             SPACE=(TRK,(3,3,3),RLSE),DCB=SYS1.MACLIB
-//FTPDDUMP DD  DSN=DEFCON.FTPDDUMP,DISP=(NEW,CATLG),    
+//FTPDDUMP DD  DSN=MAYHEM.FTPDDUMP,DISP=(NEW,CATLG),    
 //             UNIT=SYSDA,VOL=SER=PUB000,                          
 //             SPACE=(TRK,(10,5),RLSE),                              
 //             DCB=(DSORG=PS,RECFM=FB,LRECL=121,BLKSIZE=400)
 '''
 
 
-# These dont work cause cards are max 80 cars, use FTP instead:
-# for i in overflows/*; do lftp -e "cd DEFCON.OVERFLOW; put $i; bye" -u ibmuser,sys1 localhost:2121; done
-# create_pds += upload_rdrprep_file("overflows/LGBT400")
-# create_pds += upload_rdrprep_file("overflows/LOC400")
-# create_pds += upload_rdrprep_file("overflows/WTO400")
-# create_pds += upload_rdrprep_file("ARBAUTH/PATTERN")
-
-print("*** Creating DEFCON.OVERFLOW and DEFCON.SOURCE")
+print("*** Creating MAYHEM.OVERFLOW and MAYHEM.SOURCE")
 
 
 jcl += create_pds
@@ -238,45 +231,6 @@ for rexx_script in sorted(files):
 
 jcl += rx
 
-add_rakf_profiles = '''//*
-//* ADD RAKF PROFILES
-//*
-//ADDRAKFU EXEC PGM=SORT,REGION=512K,PARM='MSG=AP'
-//STEPLIB  DD   DSN=SYSC.LINKLIB,DISP=SHR
-//SYSOUT   DD   SYSOUT=A
-//SYSPRINT DD   SYSOUT=A
-//SORTLIB  DD   DSNAME=SYSC.SORTLIB,DISP=SHR
-//SORTOUT  DD   DSN=SYS1.SECURE.CNTL(USERS),DISP=SHR
-//SORTWK01 DD   UNIT=2314,SPACE=(CYL,(5,5)),VOL=SER=SORTW1
-//SORTWK02 DD   UNIT=2314,SPACE=(CYL,(5,5)),VOL=SER=SORTW2
-//SORTWK03 DD   UNIT=2314,SPACE=(CYL,(5,5)),VOL=SER=SORTW3
-//SORTWK04 DD   UNIT=2314,SPACE=(CYL,(5,5)),VOL=SER=SORTW5
-//SORTWK05 DD   UNIT=2314,SPACE=(CYL,(5,5)),VOL=SER=SORTW6
-//SYSIN  DD     *
- SORT FIELDS=(1,80,CH,A)
- RECORD TYPE=F,LENGTH=(80)
- END
-/*
-//SORTIN DD DSN=SYS1.SECURE.CNTL(USERS),DISP=SHR
-//       DD DATA,DLM=@@
-{users}
-@@
-//*
-//* Update the RAKF database
-//*
-//RAKFUPDT EXEC RAKFUSER
-'''
-
-print("*** Adding DC00 - DC30 RAKF")
-
-rakf_users = ''
-for x in range(0,30):
-    rakf_users += ("{usern}     USERS    {usern}     N\n".format(usern="DC{}".format(str(x).zfill(2))))
-jcl += add_rakf_profiles.format(users=rakf_users[:-1])
-
-jcl += replace_ispf_clist
-
-
 print("*** Adding ARBAUTH/arbauth.jcl ")
 with open("ARBAUTH/arbauth.jcl", "r") as infile:
     #ebcdic_jcl_to_upload += to_ebcdic(''.join(infile.readlines()[8:]))
@@ -286,4 +240,3 @@ with open("ARBAUTH/arbauth.jcl", "r") as infile:
 print("*** Writting jcl/upload.jcl")
 with open("jcl/upload.jcl", "w") as outfile:
     outfile.write(jcl)
-

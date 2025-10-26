@@ -1,5 +1,5 @@
 //TERMINAL JOB (TSO),
-//             'DC30 MVSCE',
+//             'NSEC MVSCE',
 //             CLASS=A,
 //             MSGCLASS=A,
 //             MSGLEVEL=(1,1),

@@ -42,8 +42,8 @@ RX MVP UPDATE -D
 //SORTIN DD DSN=SYS1.SECURE.CNTL(PROFILES),DISP=SHR
 //       DD DATA,DLM=@@
 FACILITYFTPAUTH                                     USERS   READ
-DATASET DEFCON.*                                            READ
-DATASET WHITE.RABBIT                                        NONE
+DATASET MAYHEM.*                                            READ
+DATASET MAYHEM.OPERATIONS.GOAL                              NONE
 @@
 //*
 //* Update the RAKF database
@@ -57,8 +57,8 @@ DATASET WHITE.RABBIT                                        NONE
 //SYSPRINT DD  SYSOUT=*
 //SYSUT2   DD  DSN=SYS2.PROCLIB,DISP=SHR
 //SYSUT1   DD  DATA,DLM=@@
-./ ADD NAME=FTPDDC30
-//FTPDDC30 PROC SRVPORT='2121',AUTHUSR='IBMUSER',SYSUDMP='A'
+./ ADD NAME=FTPDNSEC
+//FTPDNSEC PROC SRVPORT='2121',AUTHUSR='IBMUSER',SYSUDMP='A'
 //********************************************************************
 //*                                                                   
 //* MVS3.8J RAKF ENABLED FTP SERVER PROC WITH CUSTOM ARGUMENTS        
