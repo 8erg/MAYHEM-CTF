@@ -63,10 +63,11 @@
 1. `cp extras/FTPD.MVP MVSCE/MVP/packages/FTPD`
 2. Launch MVSCE : `./start_mvs.sh`
 3. `cat JCL/MACLFTPD.jcl|ncat --send-only -w1 127.0.0.1 3505`
-2. `cat JCL/logon_screen.jcl | ncat --send-only -w1 127.0.0.1 3505`
-4. Run the python script : `./upload.py motd.txt`
-5. `cat upload.jcl | ncat --send-only -w1 127.0.0.1 3505`
-6. Press `quit` in hercules and start it again
+4. `cat JCL/logon_screen.jcl | ncat --send-only -w1 127.0.0.1 3505`
+5. `cat JCL/terminals.jcl | ncat --send-only -w1 127.0.0.1 3505`
+6. Run the python script : `./upload.py motd.txt`
+7. `cat upload.jcl | ncat --send-only -w1 127.0.0.1 3505`
+8. Press `quit` in hercules and start it again
 
 #### With automation
 1. `pip3 install ebcdic --break-system-packages`
