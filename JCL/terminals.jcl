@@ -1,179 +1,183 @@
-//AWESOME  JOB  (SETUP),
-//             'NSEC MVSCE',
+//TERMINAL JOB (TSO),
+//             'MAYH MVSCE',
 //             CLASS=A,
-//             MSGCLASS=X,
-//             MSGLEVEL=(1,1)
-//********************************************************************
+//             MSGCLASS=A,
+//             MSGLEVEL=(1,1),
+//             USER=IBMUSER,PASSWORD=SYS1
 //*
-//* Desc: Build new NETSOL logon screen: FEDERAL
-//* Date: 03-06-2021
-//* Built using Soldier of FORTRANs ANSi to EBCDiC builder
+//* Add the extra terminals needed 
 //*
-//* Original ANSi File:   federal.ans
-//* Original ANSi Artist: Anonymous
-//* Original ANSi Date:   20210603
+//* MAKE SURE YOU ALSO INCREASE USERS IN SYS1.PAMRLIB(IKJTSO00)
+//STORE   EXEC PGM=IEBUPDTE,REGION=1024K,PARM=NEW
+//SYSPRINT  DD SYSOUT=*
+//SYSUT2    DD DSN=SYS1.VTAMLST,DISP=SHR
+//* The changes below are based on the KICKS 251 KookBooks
+//* http://www.kicksfortso.com/same/KooKbooK/KooKbooK-251project.htm
+//* 2. VTAM must know about the terminals.
+//SYSIN     DD *
+./ ADD NAME=ATCCON00,LIST=ALL
+APPLTSO,                                             TSO APPLS         X
+MAYHT                                                LOCAL 3270S        
+./ ADD NAME=MAYHT,LIST=ALL
+LCL400   LBUILD SUBAREA=2                                               
+CUU400   LOCAL TERM=3277,CUADDR=400,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)                                     
+CUU401   LOCAL TERM=3277,CUADDR=401,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)                                     
+CUU402   LOCAL TERM=3277,CUADDR=402,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)                                     
+CUU403   LOCAL TERM=3277,CUADDR=403,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)                                     
+CUU404   LOCAL TERM=3277,CUADDR=404,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)                                     
+CUU405   LOCAL TERM=3277,CUADDR=405,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)                                     
+CUU406   LOCAL TERM=3277,CUADDR=406,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)                                     
+CUU407   LOCAL TERM=3277,CUADDR=407,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU408   LOCAL TERM=3277,CUADDR=408,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU409   LOCAL TERM=3277,CUADDR=409,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU40A   LOCAL TERM=3277,CUADDR=40A,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU40B   LOCAL TERM=3277,CUADDR=40B,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU40C   LOCAL TERM=3277,CUADDR=40C,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU40D   LOCAL TERM=3277,CUADDR=40D,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU40E   LOCAL TERM=3277,CUADDR=40E,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU40F   LOCAL TERM=3277,CUADDR=40F,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU410   LOCAL TERM=3277,CUADDR=410,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU411   LOCAL TERM=3277,CUADDR=411,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU412   LOCAL TERM=3277,CUADDR=412,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU413   LOCAL TERM=3277,CUADDR=413,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU414   LOCAL TERM=3277,CUADDR=414,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU415   LOCAL TERM=3277,CUADDR=415,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU416   LOCAL TERM=3277,CUADDR=416,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU417   LOCAL TERM=3277,CUADDR=417,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU418   LOCAL TERM=3277,CUADDR=418,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU419   LOCAL TERM=3277,CUADDR=419,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU41A   LOCAL TERM=3277,CUADDR=41A,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU41B   LOCAL TERM=3277,CUADDR=41B,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU41C   LOCAL TERM=3277,CUADDR=41C,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU41D   LOCAL TERM=3277,CUADDR=41D,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)             
+CUU41E   LOCAL TERM=3277,CUADDR=41E,ISTATUS=ACTIVE,                    +
+               LOGTAB=LOGTAB01,LOGAPPL=NETSOL,                         +
+               FEATUR2=(MODEL2,PFK)
+./ ADD NAME=APPLTSO,LIST=ALL
+TSO      APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0001  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0002  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0003  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0004  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0005  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0006  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0007  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0008  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0009  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0010  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0011  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0012  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0013  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0014  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0015  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0016  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0017  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0018  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0019  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0020  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0021  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0022  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0023  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0024  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0025  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0026  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0027  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0028  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0029  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5                          
+TSO0030  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5 
+TSO0031  APPL AUTH=(PASS,NVPACE,TSO),BUFFACT=5
+./ ADD NAME=ATCSTR00,LIST=ALL
+CONFIG=00,                         /*CONFIG LIST SUFFIX              */+
+SSCPID=01,                         /*THIS VTAMS ID IN NETWORK        */+
+NETSOL=YES,                        /*NETWORK SOLICITOR OPTION        */+
+MAXSUBA=31,                        /*MAXIMUM SUBAREAS IN NETWORK     */+
+NOPROMPT,                          /*OPERATOR PROMPT OPTION          */+
+SUPP=NOSUP,                        /*MESSAGE SUPPRESSION OPTION      */+
+COLD,                              /*RESTART OPTION   - COLD/WARM    */+
+APBUF=(192,,128),                  /*ACE STORAGE POOL                */+
+CRPLBUF=(281,,181),                /*RPL COPY POOL                   */+
+IOBUF=(128,512,104,F),             /*FIXED IO (GP-5/2009)            */+
+LFBUF=(32,,32,F),                  /*LARGE FIXED BUFFER POOL         */+
+LPBUF=(146,,146),                  /*LARGE PAGEBLE BUFFER POOL       */+
+NPBUF=(134,,70,F),                 /*NON WS FMCB                     */+
+PPBUF=(20,3992,10,F),              /*PAGEBLE IO (GP-5/2009)          */+
+SFBUF=(140,,76,F),                 /*SMALL FIXED BUFFER POOL         */+
+SPBUF=(032,,32,F),                 /*SMALL PGBL BUFFER POOL          */+
+UECBUF=(128,,108,F),               /*USER EXIT CB                    */+
+WPBUF=(64,,64,F)                   /*MESSAGE CONTROL BUFFER POOL     */
+/*
 //*
-//* Command Line Args: --sysgen federal.ans --ROW 13 --COL 13 --member 
-//*                    FEDERAL --file FEDERAL.JCL 
+//* This step changes USERMAX to 32 in SYS1.PARMLIB(IKJTSO00)
 //*
-//* After submitting run the following to refresh VTAM in hercules
-//* console:
-//*
-//*     /P TSO
-//*     /Z NET,QUICK
-//*
-//* Then the commands to bring the services back is:
-//*
-//*     /S NET
-//*
-//********************************************************************
-//*
-//* First delete the previous version if it exists
-//*
-//CLEANUP EXEC PGM=IDCAMS
+//ADDAPF   EXEC PGM=IKJEFT01,REGION=1024K,DYNAMNBR=50
 //SYSPRINT DD  SYSOUT=*
-//SYSIN    DD  *
- DELETE SYS1.UMODMAC(FEDERAL)
- SET MAXCC=0
- SET LASTCC=0
-//*
-//* Then we "compress" SYS1.UMODMAC to free up space
-//*
-//COMP    EXEC COMPRESS,LIB='SYS1.UMODMAC'
-//*
-//* THEN WE COPY THE ORIGINAL NETSOL SOURCE FROM SYS1.AMACLIB
-//* TO SYS1.UMODMAC
-//*
-//UMODMAC  EXEC PGM=IEBGENER
-//SYSIN    DD DUMMY
-//SYSPRINT DD SYSOUT=*
-//SYSUT1   DD DISP=SHR,DSN=SYS1.AMACLIB(NETSOL)
-//SYSUT2   DD DISP=SHR,DSN=SYS1.UMODMAC(NETSOL)
-//*
-//* THEN WE UPDATE SYS1.UMODMAC(NETSOL) TO DISPLAY OUR CUSTOM 3270
-//*
-//UPDATE   EXEC PGM=IEBUPDTE
-//SYSPRINT DD SYSOUT=*
-//SYSUT1   DD DISP=SHR,DSN=SYS1.UMODMAC
-//SYSUT2   DD DISP=SHR,DSN=SYS1.UMODMAC
-//SYSIN    DD DATA,DLM=$$
-./ ADD NAME=FEDERAL
-* NETSOL screen created by ANSi2EBCDiC.py
-         PUSH  PRINT
-         PRINT OFF
-EGMSG    DS 0C EGMSG
-         $WCC  (RESETKBD,MDT)
-         $SBA  (1,1)
-* (1,1) Normal Display 
-         DC    X'280000'
-         DC    C' '
-         $SBA  (3,2)
-* (3,2) (FG) Cyan 
-         DC    X'2842F5'
-         DC    C'You are accessing a U.S. Government system;'
-         $SBA  (3,45)
-* (3,45) (FG) White 
-         DC    X'2842F7'
-         DC    C' '
-         $SBA  (5,2)
-* (5,2) (FG) Cyan 
-         DC    X'2842F5'
-         DC    C'NO EXPECTATION OF PRIVACY - System use '
-         DC    C'indicates consent to monitoring,'
-         $SBA  (6,1)
-* (6,1) (FG) White 
-         DC    X'2842F7'
-         DC    C' '
-         $SBA  (6,2)
-* (6,2) (FG) Cyan 
-         DC    X'2842F5'
-         DC    C'recording, and auditing of activity; and'
-         $SBA  (6,42)
-* (6,42) (FG) White 
-         DC    X'2842F7'
-         DC    C' '
-         $SBA  (8,2)
-* (8,2) (FG) Cyan 
-         DC    X'2842F5'
-         DC    C'Unauthorized use is prohibited and subject to '
-         DC    C'criminal, civil, security, or'
-         $SBA  (8,77)
-* (8,77) (FG) White 
-         DC    X'2842F7'
-         DC    C' '
-         $SBA  (9,2)
-* (9,2) (FG) Cyan 
-         DC    X'2842F5'
-         DC    C'administrative'
-         $SBA  (9,16)
-* (9,16) (FG) White 
-         DC    X'2842F7'
-         DC    C' '
-         $SBA  (9,17)
-* (9,17) (FG) Cyan 
-         DC    X'2842F5'
-         DC    C'proceedings and/or penalties.'
-         $SBA  (9,46)
-* (9,46) (FG) White 
-         DC    X'2842F7'
-* Insert Cursor and unprotected field
-         $SBA  (13,13)
-         DC    X'2842F2'  SA COLOR RED
-         $SF   (UNPROT,HI)
-         $IC
-         DC    CL20' '
-         DC    X'280000'
-         DC    X'1DF8'     SF (PROT,HIGH INTENSITY)
-         $SBA  (24,80)
-         $SF   (SKIP,HI)
-EGMSGLN EQU *-EGMSG
-         POP   PRINT
-./ CHANGE NAME=NETSOL
-         CLI   MSGINDEX,X'0C'                                           23164802
-         BNE   EGSKIP                                                   23164804
-         LA    R3,EGMSGLN                                               23164808
-         L     R4,=A(EGMSG)                                             23164810
-*                                                                       23164812
-         WRITE RPL=(PTRRPL),                                           X23164814
-               OPTCD=(LBT,ERASE),                                      X23164816
-               AREA=(R4),                                              X23164818
-               RECLEN=(R3),                                            X23164820
-               EXIT=WRITEND                                             23164822
-*                                                                       23164824
-         B EGOK                                                         23164826
-*                                                                       23164828
-*                                                                       23164830
-EGSKIP   DS 0H EGSKIP                                                   23164832
-EGOK     DS 0H EGOK                                                     23166010
-         COPY FEDERAL                     , logon screen copy book      66810010
-$$
-//*
-//* With that done its time to assemble our new screen
-//* We assemble SYS1.UMODMAC(NETSOL) with IFOX00
-//*
-//ASM     EXEC PGM=IFOX00,REGION=1024K
-//SYSLIB   DD  DISP=SHR,DSN=SYS1.UMODMAC,DCB=LRECL=32720
-//         DD  DISP=SHR,DSN=SYS2.MACLIB
-//         DD  DISP=SHR,DSN=SYS1.MACLIB
-//         DD  DISP=SHR,DSN=SYS1.AMODGEN
-//SYSUT1   DD  UNIT=VIO,SPACE=(1700,(600,100))
-//SYSUT2   DD  UNIT=VIO,SPACE=(1700,(300,50))
-//SYSUT3   DD  UNIT=VIO,SPACE=(1700,(300,50))
-//SYSPRINT DD  SYSOUT=*,DCB=BLKSIZE=1089
-//SYSPUNCH DD  DISP=(NEW,PASS,DELETE),
-//             UNIT=VIO,SPACE=(TRK,(2,2)),
-//             DCB=(BLKSIZE=80,LRECL=80,RECFM=F)
-//SYSIN    DD  *
-ISTNSC00 CSECT ,
-         NETSOL SYSTEM=VS2
-         END   ,
-//*
-//* Then we link it and put it in SYS1.VTAMLIB(ISTNSC00)
-//*
-//LKED    EXEC PGM=IEWL,PARM='XREF,LIST,LET,NCAL',REGION=1024K
-//SYSPRINT DD  SYSOUT=*
-//SYSLIN   DD  DISP=(OLD,DELETE,DELETE),DSN=*.ASM.SYSPUNCH
-//SYSLMOD  DD  DISP=SHR,DSN=SYS1.VTAMLIB(ISTNSC00)
-//SYSUT1   DD  UNIT=VIO,SPACE=(1024,(200,20))
-//*
-//
+//SYSTSPRT DD  SYSOUT=*
+//SYSTERM  DD  SYSOUT=*
+//SYSTSIN  DD  *
+ EDIT 'SYS1.PARMLIB(IKJTSO00)' DATA
+ LIST
+ TOP
+ CHANGE /USERMAX=8, /USERMAX=32,/
+ LIST
+ SAVE
+ END
