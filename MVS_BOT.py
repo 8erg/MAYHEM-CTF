@@ -32,9 +32,8 @@ try:
     build.wait_for_string("$HASP250 TERMINAL IS PURGED")
 
     print("Submitting {}/JCL/upload.jcl".format(cwd))
-    with open("{}/JCL/terminals.jcl".format(cwd),"r") as jcl:
+    with open("{}/JCL/upload.jcl".format(cwd),"r") as jcl:
         build.submit(jcl.read())
     build.wait_for_string("$HASP250 UPLOAD   IS PURGED")
 finally:
     build.reset_hercules()
-    exit()

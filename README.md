@@ -72,10 +72,11 @@
 8. Press `quit` in hercules and start it again
 
 #### With automation
-1. `pip3 install ebcdic --break-system-packages`
-2. `pip install telnetlib3 --break-system-packages`
-3. `./upload.py motd.txt`
-4. `until python3 -u automation.py --initial; do echo "Failed, trying again"; done`
+1. `cp extras/FTPD.MVP MVSCE/MVP/packages/FTPD`
+2. `pip install automvs --break-system-packages`
+3. `git clone https://github.com/jake-mainframe/ARBAUTH`
+4. Run the python script : `./upload.py motd.txt`
+5. `python ./MVS_BOT.py`
 
 
 
