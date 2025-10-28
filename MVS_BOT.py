@@ -16,6 +16,7 @@ build.ipl(clpa=False)
 try:
     os.chdir("../")
     cwd = os.getcwd()
+    
     print("[+] Submitting {}/JCL/MACLFTPD.jcl".format(cwd))
     with open("{}/JCL/MACLFTPD.jcl".format(cwd),"r") as jcl:
         build.submit(jcl.read())
@@ -36,7 +37,7 @@ try:
         build.submit(jcl.read())
     build.wait_for_string("$HASP250 UPLOAD   IS PURGED")
 
-    print("[+] Submitting {}/JCL/upload.jcl".format(cwd))
-    build.send_oper("/S FTPDPARM,SRVPORT=2121")
+    #print("[+] Starting FTP Server on port 2121")
+    #build.send_oper("/S FTPDPARM,SRVPORT=2121")
 finally:
     build.reset_hercules()

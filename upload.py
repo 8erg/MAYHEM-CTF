@@ -173,10 +173,7 @@ jcl += create_pds
 
 print("*** Adding Source files ")
 
-with open("ARBAUTH/arbauth.jcl", "r") as infile:
-    arbauthsrc = "./ ADD NAME=ARBAUTH,LIST=ALL\n{}".format( infile.read() )
-
-jcl += sources.format(sources=arbauthsrc+hint)
+jcl += sources.format(sources=hint)
 
 with open("matrix.txt", "r") as infile:
     jcl += mayhemops.format( sources = "./ ADD NAME=SCRIPT,LIST=ALL\n{}".format( infile.read() ) )
@@ -196,10 +193,41 @@ for rexx_script in sorted(files):
 
 jcl += rx
 
-print("*** Adding ARBAUTH/arbauth.jcl ")
-with open("ARBAUTH/arbauth.jcl", "r") as infile:
-    #ebcdic_jcl_to_upload += to_ebcdic(''.join(infile.readlines()[8:]))
-    jcl += (''.join(infile.readlines()[8:]))
+add_rakf_profiles = '''//*
+//* ADD RAKF PROFILES
+//*
+//ADDRAKFU EXEC PGM=SORT,REGION=512K,PARM='MSG=AP'
+//STEPLIB  DD   DSN=SYSC.LINKLIB,DISP=SHR
+//SYSOUT   DD   SYSOUT=A
+//SYSPRINT DD   SYSOUT=A
+//SORTLIB  DD   DSNAME=SYSC.SORTLIB,DISP=SHR
+//SORTOUT  DD   DSN=SYS1.SECURE.CNTL(USERS),DISP=SHR
+//SORTWK01 DD   UNIT=2314,SPACE=(CYL,(5,5)),VOL=SER=SORTW1
+//SORTWK02 DD   UNIT=2314,SPACE=(CYL,(5,5)),VOL=SER=SORTW2
+//SORTWK03 DD   UNIT=2314,SPACE=(CYL,(5,5)),VOL=SER=SORTW3
+//SORTWK04 DD   UNIT=2314,SPACE=(CYL,(5,5)),VOL=SER=SORTW5
+//SORTWK05 DD   UNIT=2314,SPACE=(CYL,(5,5)),VOL=SER=SORTW6
+//SYSIN  DD     *
+ SORT FIELDS=(1,80,CH,A)
+ RECORD TYPE=F,LENGTH=(80)
+ END
+/*
+//SORTIN DD DSN=SYS1.SECURE.CNTL(USERS),DISP=SHR
+//       DD DATA,DLM=@@
+{users}
+@@
+//*
+//* Update the RAKF database
+//*
+//RAKFUPDT EXEC RAKFUSER
+'''
+
+rakf_users = ''
+for x in range(0,2):
+    rakf_users += ("{usern}     USERS    {usern}     N\n".format(usern="MH{}".format(str(x).zfill(2))))
+jcl += add_rakf_profiles.format(users=rakf_users[:-1])
+
+jcl += replace_ispf_clist
 
 print("*** Writting jcl/upload.jcl")
 with open("JCL/upload.jcl", "w") as outfile:
