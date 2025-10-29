@@ -27,10 +27,10 @@ try:
         build.submit(jcl.read())
     build.wait_for_string("$HASP395 AWESOME  ENDED")
 
-    print("[+] Submitting {}/JCL/terminals.jcl".format(cwd))
-    with open("{}/JCL/terminals.jcl".format(cwd),"r") as jcl:
-        build.submit(jcl.read())
-    build.wait_for_string("$HASP250 TERMINAL IS PURGED")
+    #print("[+] Submitting {}/JCL/terminals.jcl".format(cwd))
+    #with open("{}/JCL/terminals.jcl".format(cwd),"r") as jcl:
+    #    build.submit(jcl.read())
+    #build.wait_for_string("$HASP250 TERMINAL IS PURGED")
 
     print("[+] Submitting {}/JCL/upload.jcl".format(cwd))
     with open("{}/JCL/upload.jcl".format(cwd),"r") as jcl:
@@ -39,5 +39,8 @@ try:
 
     print("[+] Starting FTP Server on port 2121")
     build.send_oper("/S FTPDPARM,SRVPORT=2121")
+except Exception as e:
+    build.quit_hercules()
+
 finally:
     build.reset_hercules()
