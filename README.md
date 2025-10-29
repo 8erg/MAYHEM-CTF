@@ -74,7 +74,6 @@
 #### With automation
 1. `cp extras/FTPD.MVP MVSCE/MVP/packages/FTPD`
 2. `pip install automvs --break-system-packages`
-3. `git clone https://github.com/jake-mainframe/ARBAUTH`
 4. Run the python script : `./upload.py motd.txt`
 5. `python ./MVS_BOT.py`
 

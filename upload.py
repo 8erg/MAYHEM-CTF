@@ -88,7 +88,7 @@ SRVIP=ANY
 PASVADR=127,0,0,1
 PASVPORTS=31337-31347
 INSECURE=1
-AUTHUSER=IBMUSER
+AUTHUSER=MAYHEM1
 PUB000,3380         PUBLIC DATASETS (PRIVATE)                                      
 ./ ENDUP  
 '''
@@ -222,8 +222,11 @@ add_rakf_profiles = '''//*
 //RAKFUPDT EXEC RAKFUSER
 '''
 
-rakf_users = ("{usern}     USERS    {usern}     N\n".format(usern="MAYHEM01"))
+rakf_users = ''
+for x in range(0,1):
+    rakf_users += ("{usern}     USERS    {usern}     N\n".format(usern="MAYHEM{}".format(str(x).zfill(2))))
 jcl += add_rakf_profiles.format(users=rakf_users[:-1])
+
 jcl += replace_ispf_clist
 
 print("*** Writting jcl/upload.jcl")
