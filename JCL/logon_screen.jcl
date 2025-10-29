@@ -2,7 +2,7 @@
 //             'Build Netsol',
 //             CLASS=A,
 //             MSGCLASS=X,
-//             MSGLEVEL=(1,1)
+//             MSGLEVEL=(1,1),USER=IBMUSER,PASSWORD=SYS1
 //********************************************************************
 //*
 //* Desc: Build new NETSOL logon screen: FEDERAL
