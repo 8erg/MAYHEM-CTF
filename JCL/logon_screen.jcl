@@ -5,16 +5,18 @@
 //             MSGLEVEL=(1,1),USER=IBMUSER,PASSWORD=SYS1
 //********************************************************************
 //*
-//* Desc: Build new NETSOL logon screen: FEDERAL
+//* Desc: Build new NETSOL logon screen: MFRAME
 //* Date: 03-06-2021
 //* Built using Soldier of FORTRANs ANSi to EBCDiC builder
 //*
-//* Original ANSi File:   federal.ans
-//* Original ANSi Artist: Anonymous
+//* Original ANSi File:   mainfram.ans
+//* Original ANSi Title:  mainframe
+//* Original ANSi Artist: wood
+//* Original ANSi Group:  boneless / sliver
 //* Original ANSi Date:   20210603
 //*
-//* Command Line Args: --sysgen federal.ans --ROW 13 --COL 13 --member 
-//*                    FEDERAL --file FEDERAL.JCL 
+//* Command Line Args: --sysgen mainfram.ans --ROW 23 --COL 2 --member 
+//*                    MFRAME --file MFRAME.JCL 
 //*
 //* After submitting run the following to refresh VTAM in hercules
 //* console:
@@ -33,7 +35,7 @@
 //CLEANUP EXEC PGM=IDCAMS
 //SYSPRINT DD  SYSOUT=*
 //SYSIN    DD  *
- DELETE SYS1.UMODMAC(FEDERAL)
+ DELETE SYS1.UMODMAC(MFRAME)
  SET MAXCC=0
  SET LASTCC=0
 //*
@@ -57,7 +59,7 @@
 //SYSUT1   DD DISP=SHR,DSN=SYS1.UMODMAC
 //SYSUT2   DD DISP=SHR,DSN=SYS1.UMODMAC
 //SYSIN    DD DATA,DLM=$$
-./ ADD NAME=FEDERAL
+./ ADD NAME=MFRAME
 * NETSOL screen created by ANSi2EBCDiC.py
          PUSH  PRINT
          PRINT OFF
@@ -66,58 +68,571 @@ EGMSG    DS 0C EGMSG
          $SBA  (1,1)
 * (1,1) Normal Display 
          DC    X'280000'
-         DC    C' '
+         $SBA  (1,1)
+* (1,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'+'
+         DC    76C'-'
+         DC    C'+'
+         $SBA  (1,79)
+* (1,79) Normal Display 
+         DC    X'280000'
+         $SBA  (2,1)
+* (2,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (2,2)
+* (2,2) Normal Display 
+         DC    X'280000'
+         DC    76C' '
+         $SBA  (2,78)
+* (2,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (2,79)
+* (2,79) Normal Display 
+         DC    X'280000'
+         $SBA  (3,1)
+* (3,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
          $SBA  (3,2)
-* (3,2) (FG) Cyan 
-         DC    X'2842F5'
-         DC    C'You are accessing a U.S. Government system;'
-         $SBA  (3,45)
-* (3,45) (FG) White 
-         DC    X'2842F7'
+* (3,2) Normal Display 
+         DC    X'280000'
+         DC    C' .s#S'
+         DC    5C'$'
+         DC    C'S#s.  .s#S$$$S#s.  .s#S$  .s#S$$$S#s.'
+         DC    29C' '
+         $SBA  (3,78)
+* (3,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (3,79)
+* (3,79) Normal Display 
+         DC    X'280000'
+         $SBA  (4,1)
+* (4,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (4,2)
+* (4,2) Normal Display 
+         DC    X'280000'
          DC    C' '
+         DC    5C'$'
+         DC    C' $ '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C' '
+         DC    5C'$'
+         DC    C'  $Y'
+         DC    X'EA'
+         DC    C'"'
+         DC    X'7D'
+         DC    C'  '
+         DC    5C'$'
+         DC    C' '
+         DC    5C'$'
+         DC    29C' '
+         $SBA  (4,78)
+* (4,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (4,79)
+* (4,79) Normal Display 
+         DC    X'280000'
+         $SBA  (5,1)
+* (5,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
          $SBA  (5,2)
-* (5,2) (FG) Cyan 
-         DC    X'2842F5'
-         DC    C'NO EXPECTATION OF PRIVACY - System use '
-         DC    C'indicates consent to monitoring,'
+* (5,2) Normal Display 
+         DC    X'280000'
+         DC    C' '
+         DC    5C'$'
+         DC    C'   '
+         DC    5C'$'
+         DC    C'  '
+         DC    11C'$'
+         DC    C'  .s#S$  '
+         DC    5C'$'
+         DC    C' '
+         DC    5C'$'
+         DC    29C' '
+         $SBA  (5,78)
+* (5,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (5,79)
+* (5,79) Normal Display 
+         DC    X'280000'
          $SBA  (6,1)
-* (6,1) (FG) White 
-         DC    X'2842F7'
-         DC    C' '
+* (6,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
          $SBA  (6,2)
-* (6,2) (FG) Cyan 
-         DC    X'2842F5'
-         DC    C'recording, and auditing of activity; and'
-         $SBA  (6,42)
-* (6,42) (FG) White 
-         DC    X'2842F7'
+* (6,2) Normal Display 
+         DC    X'280000'
          DC    C' '
+         DC    5C'$'
+         DC    C'   '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C' '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C' '
+         DC    5C'$'
+         DC    29C' '
+         $SBA  (6,78)
+* (6,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (6,79)
+* (6,79) Normal Display 
+         DC    X'280000'
+         $SBA  (7,1)
+* (7,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (7,2)
+* (7,2) Normal Display 
+         DC    X'280000'
+         DC    C' '
+         DC    5C'$'
+         DC    C'   '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C' '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C' '
+         DC    5C'$'
+         DC    29C' '
+         $SBA  (7,78)
+* (7,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (7,79)
+* (7,79) Normal Display 
+         DC    X'280000'
+         $SBA  (8,1)
+* (8,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
          $SBA  (8,2)
-* (8,2) (FG) Cyan 
-         DC    X'2842F5'
-         DC    C'Unauthorized use is prohibited and subject to '
-         DC    C'criminal, civil, security, or'
-         $SBA  (8,77)
-* (8,77) (FG) White 
-         DC    X'2842F7'
+* (8,2) Normal Display 
+         DC    X'280000'
          DC    C' '
+         DC    5C'$'
+         DC    C'   '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C' '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C' '
+         DC    5C'$'
+         DC    29C' '
+         $SBA  (8,78)
+* (8,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (8,79)
+* (8,79) Normal Display 
+         DC    X'280000'
+         $SBA  (9,1)
+* (9,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
          $SBA  (9,2)
-* (9,2) (FG) Cyan 
-         DC    X'2842F5'
-         DC    C'administrative'
-         $SBA  (9,16)
-* (9,16) (FG) White 
-         DC    X'2842F7'
+* (9,2) Normal Display 
+         DC    X'280000'
          DC    C' '
-         $SBA  (9,17)
-* (9,17) (FG) Cyan 
-         DC    X'2842F5'
-         DC    C'proceedings and/or penalties.'
-         $SBA  (9,46)
-* (9,46) (FG) White 
-         DC    X'2842F7'
+         DC    X'79'
+         DC    C'"'
+         DC    X'EA'
+         DC    C'Y$   '
+         DC    5C'$'
+         DC    C'  $Y'
+         DC    X'EA'
+         DC    C'"'
+         DC    X'7D'
+         DC    C' '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C'  '
+         DC    X'79'
+         DC    C'"'
+         DC    X'EA'
+         DC    C'Y$ '
+         DC    5C'$'
+         DC    29C' '
+         $SBA  (9,78)
+* (9,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (9,79)
+* (9,79) Normal Display 
+         DC    X'280000'
+         $SBA  (10,1)
+* (10,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (10,2)
+* (10,2) Normal Display 
+         DC    X'280000'
+         DC    5C' '
+         DC    C'"   $Y'
+         DC    X'EA'
+         DC    C'"'
+         DC    X'7D'
+         DC    C'  "'
+         DC    5C' '
+         DC    X'79'
+         DC    C'"'
+         DC    X'EA'
+         DC    C'Y$  $Y'
+         DC    X'EA'
+         DC    C'"'
+         DC    X'7D'
+         DC    6C' '
+         DC    C'" $Y'
+         DC    X'EA'
+         DC    C'"'
+         DC    X'7D'
+         DC    29C' '
+         $SBA  (10,78)
+* (10,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (10,79)
+* (10,79) Normal Display 
+         DC    X'280000'
+         $SBA  (11,1)
+* (11,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (11,2)
+* (11,2) Normal Display 
+         DC    X'280000'
+         DC    9C' '
+         DC    C'"'
+         DC    16C' '
+         DC    C'"  "'
+         DC    12C' '
+         DC    C'"'
+         DC    33C' '
+         $SBA  (11,78)
+* (11,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (11,79)
+* (11,79) Normal Display 
+         DC    X'280000'
+         $SBA  (12,1)
+* (12,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (12,2)
+* (12,2) Normal Display 
+         DC    X'280000'
+         DC    10C' '
+         DC    C'.s#S$$$S#s.  $S#s. .s#S$  .s#S$$$S#s.  .s#S'
+         DC    5C'$'
+         DC    C'S#s.  .s#S$$$S#s. '
+         $SBA  (12,78)
+* (12,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (12,79)
+* (12,79) Normal Display 
+         DC    X'280000'
+         $SBA  (13,1)
+* (13,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (13,2)
+* (13,2) Normal Display 
+         DC    X'280000'
+         DC    10C' '
+         DC    5C'$'
+         DC    C' '
+         DC    X'79'
+         DC    C'"'
+         DC    X'EA'
+         DC    C'Y$  $WOOD$$Y'
+         DC    X'EA'
+         DC    C'"'
+         DC    X'7D'
+         DC    C'  '
+         DC    5C'$'
+         DC    C' '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C' $ '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C' '
+         DC    X'79'
+         DC    C'"'
+         DC    X'EA'
+         DC    C'Y$ '
+         $SBA  (13,78)
+* (13,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (13,79)
+* (13,79) Normal Display 
+         DC    X'280000'
+         $SBA  (14,1)
+* (14,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (14,2)
+* (14,2) Normal Display 
+         DC    X'280000'
+         DC    10C' '
+         DC    5C'$'
+         DC    5C' '
+         DC    C'"  '
+         DC    6C'$'
+         DC    C'"'
+         DC    6C' '
+         DC    11C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C'   '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    5C' '
+         DC    C'" '
+         $SBA  (14,78)
+* (14,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (14,79)
+* (14,79) Normal Display 
+         DC    X'280000'
+         $SBA  (15,1)
+* (15,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (15,2)
+* (15,2) Normal Display 
+         DC    X'280000'
+         DC    10C' '
+         DC    7C'$'
+         DC    6C' '
+         DC    5C'$'
+         DC    8C' '
+         DC    5C'$'
+         DC    C' '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C'   '
+         DC    5C'$'
+         DC    C'  '
+         DC    7C'$'
+         DC    5C' '
+         $SBA  (15,78)
+* (15,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (15,79)
+* (15,79) Normal Display 
+         DC    X'280000'
+         $SBA  (16,1)
+* (16,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (16,2)
+* (16,2) Normal Display 
+         DC    X'280000'
+         DC    10C' '
+         DC    5C'$'
+         DC    8C' '
+         DC    5C'$'
+         DC    8C' '
+         DC    5C'$'
+         DC    C' '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C'   '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    5C' '
+         DC    X'08D5'
+         DC    C' '
+         $SBA  (16,78)
+* (16,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (16,79)
+* (16,79) Normal Display 
+         DC    X'280000'
+         $SBA  (17,1)
+* (17,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (17,2)
+* (17,2) Normal Display 
+         DC    X'280000'
+         DC    10C' '
+         DC    5C'$'
+         DC    8C' '
+         DC    5C'$'
+         DC    8C' '
+         DC    5C'$'
+         DC    C' '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C'   '
+         DC    5C'$'
+         DC    C'  '
+         DC    5C'$'
+         DC    C' .s#S$ '
+         $SBA  (17,78)
+* (17,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (17,79)
+* (17,79) Normal Display 
+         DC    X'280000'
+         $SBA  (18,1)
+* (18,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (18,2)
+* (18,2) Normal Display 
+         DC    X'280000'
+         DC    10C' '
+         DC    C'$Y'
+         DC    X'EA'
+         DC    C'"'
+         DC    X'7D'
+         DC    8C' '
+         DC    X'79'
+         DC    C'"'
+         DC    X'EA'
+         DC    C'Y$'
+         DC    8C' '
+         DC    C'$Y'
+         DC    X'EA'
+         DC    C'"'
+         DC    X'7D'
+         DC    C' '
+         DC    5C'$'
+         DC    C'  '
+         DC    X'79'
+         DC    C'"'
+         DC    X'EA'
+         DC    C'Y$   '
+         DC    5C'$'
+         DC    C'  '
+         DC    X'79'
+         DC    C'"'
+         DC    X'EA'
+         DC    C'Y$$$Y'
+         DC    X'EA'
+         DC    C'"'
+         DC    X'7D'
+         DC    C' '
+         $SBA  (18,78)
+* (18,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (18,79)
+* (18,79) Normal Display 
+         DC    X'280000'
+         $SBA  (19,1)
+* (19,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (19,2)
+* (19,2) Normal Display 
+         DC    X'280000'
+         DC    10C' '
+         DC    C'"'
+         DC    16C' '
+         DC    C'"'
+         DC    8C' '
+         DC    C'"'
+         DC    5C' '
+         DC    X'79'
+         DC    C'"'
+         DC    X'EA'
+         DC    C'Y$'
+         DC    6C' '
+         DC    C'"   $Y'
+         DC    X'EA'
+         DC    C'"'
+         DC    X'7D'
+         DC    14C' '
+         $SBA  (19,78)
+* (19,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (19,79)
+* (19,79) Normal Display 
+         DC    X'280000'
+         $SBA  (20,1)
+* (20,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (20,2)
+* (20,2) Normal Display 
+         DC    X'280000'
+         DC    46C' '
+         DC    C'"'
+         DC    10C' '
+         DC    C'"'
+         DC    18C' '
+         $SBA  (20,78)
+* (20,78) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'|'
+         $SBA  (20,79)
+* (20,79) Normal Display 
+         DC    X'280000'
+         $SBA  (21,1)
+* (21,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    C'+'
+         DC    76C'-'
+         DC    C'+'
+         $SBA  (21,79)
+* (21,79) Normal Display 
+         DC    X'280000'
+         $SBA  (22,1)
+* (22,1) Bold/Intense 
+         DC    X'2841F8'
+         DC    X'6E'
+         $SBA  (24,1)
+* (24,1) Normal Display 
+         DC    X'280000'
 * Insert Cursor and unprotected field
-         $SBA  (13,13)
+         $SBA  (23,2)
          DC    X'2842F2'  SA COLOR RED
          $SF   (UNPROT,HI)
          $IC
@@ -145,7 +660,7 @@ EGMSGLN EQU *-EGMSG
 *                                                                       23164830
 EGSKIP   DS 0H EGSKIP                                                   23164832
 EGOK     DS 0H EGOK                                                     23166010
-         COPY FEDERAL                     , logon screen copy book      66810010
+         COPY MFRAME                      , logon screen copy book      66810010
 $$
 //*
 //* With that done its time to assemble our new screen
