@@ -222,11 +222,8 @@ add_rakf_profiles = '''//*
 //RAKFUPDT EXEC RAKFUSER
 '''
 
-rakf_users = ''
-for x in range(0,2):
-    rakf_users += ("{usern}     USERS    {usern}     N\n".format(usern="MH{}".format(str(x).zfill(2))))
+rakf_users = ("{usern}     USERS    {usern}     N\n".format(usern="MAYHEM01"))
 jcl += add_rakf_profiles.format(users=rakf_users[:-1])
-
 jcl += replace_ispf_clist
 
 print("*** Writting jcl/upload.jcl")
