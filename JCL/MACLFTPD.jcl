@@ -58,7 +58,7 @@ DATASET MAYHEM.OPS                                          NONE
 //SYSUT2   DD  DSN=SYS2.PROCLIB,DISP=SHR
 //SYSUT1   DD  DATA,DLM=@@
 ./ ADD NAME=FTPDNSEC
-//FTPDNSEC PROC SRVPORT='2121',AUTHUSR='MVSCE02',SYSUDMP='A'
+//FTPDNSEC PROC SRVPORT='2121',AUTHUSR='IBMUSER',SYSUDMP='A'
 //********************************************************************
 //*                                                                   
 //* MVS3.8J RAKF ENABLED FTP SERVER PROC WITH CUSTOM ARGUMENTS        
