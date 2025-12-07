@@ -3,6 +3,7 @@
 # This will create MAYHEM.* datasets
 # Replaced the LOGON clist with motd.txt
 
+import os
 import sys
 import math
 from pathlib import Path
@@ -231,5 +232,5 @@ jcl += add_rakf_profiles.format(users=rakf_users[:-1])
 jcl += replace_ispf_clist
 
 print("*** Writting jcl/upload.jcl")
-with open("../JCL/upload.jcl", "w") as outfile:
+with open("JCL/upload.jcl", "w") as outfile:
     outfile.write(jcl)
