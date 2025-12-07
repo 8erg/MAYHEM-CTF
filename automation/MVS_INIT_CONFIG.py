@@ -1,9 +1,10 @@
 import os
 from automvs import automation
 
+home = os.path.expanduser("~")
 build = automation(
     system='MVSCE',
-    system_path='/home/kali/MAYHEM-CTF/MVSCE/',
+    system_path=f'{home}/MAYHEM-CTF/MVSCE/',
     ip = '127.0.0.1',
     punch_port = 3505,
     username='IBMUSER',

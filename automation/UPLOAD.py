@@ -168,7 +168,6 @@ create_pds = '''//*
 
 print("*** CREATING MAYHEM PDS")
 
-
 jcl += create_pds
 
 print("*** Adding Source files ")
@@ -193,8 +192,44 @@ for rexx_script in sorted(files):
 
 jcl += rx
 
+add_rakf_profiles = '''//*
+//* ADD RAKF PROFILES
+//*
+//ADDRAKFU EXEC PGM=SORT,REGION=512K,PARM='MSG=AP'
+//STEPLIB  DD   DSN=SYSC.LINKLIB,DISP=SHR
+//SYSOUT   DD   SYSOUT=A
+//SYSPRINT DD   SYSOUT=A
+//SORTLIB  DD   DSNAME=SYSC.SORTLIB,DISP=SHR
+//SORTOUT  DD   DSN=SYS1.SECURE.CNTL(USERS),DISP=SHR
+//SORTWK01 DD   UNIT=2314,SPACE=(CYL,(5,5)),VOL=SER=SORTW1
+//SORTWK02 DD   UNIT=2314,SPACE=(CYL,(5,5)),VOL=SER=SORTW2
+//SORTWK03 DD   UNIT=2314,SPACE=(CYL,(5,5)),VOL=SER=SORTW3
+//SORTWK04 DD   UNIT=2314,SPACE=(CYL,(5,5)),VOL=SER=SORTW5
+//SORTWK05 DD   UNIT=2314,SPACE=(CYL,(5,5)),VOL=SER=SORTW6
+//SYSIN  DD     *
+ SORT FIELDS=(1,80,CH,A)
+ RECORD TYPE=F,LENGTH=(80)
+ END
+/*
+//SORTIN DD DSN=SYS1.SECURE.CNTL(USERS),DISP=SHR
+//       DD DATA,DLM=@@
+{users}
+@@
+//*
+//* Update the RAKF database
+//*
+//RAKFUPDT EXEC RAKFUSER
+'''
+
+print("*** Adding MH00 - MH02 RAKF")
+
+rakf_users = ''
+for x in range(0,2):
+    rakf_users += ("{usern}     USERS    {usern}     N\n".format(usern="MH{}".format(str(x).zfill(2))))
+jcl += add_rakf_profiles.format(users=rakf_users[:-1])
+
 jcl += replace_ispf_clist
 
 print("*** Writting jcl/upload.jcl")
-with open("JCL/upload.jcl", "w") as outfile:
+with open("../JCL/upload.jcl", "w") as outfile:
     outfile.write(jcl)
