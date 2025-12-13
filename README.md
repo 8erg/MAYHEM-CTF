@@ -60,13 +60,17 @@
 
 ## Configuration
 
+#### To compile a C program to 3270 assembly
+1. clone this repo : `https://github.com/mvslovers/jcc`
+2. install wine : `sudo apt install wine wine32`
+3. compile : `./jcc/prelink -s ./jcc/objs <name>.load <name>.obj`
+
 #### Manually
 1. `cp extras/FTPD.MVP MVSCE/MVP/packages/FTPD`
 2. Launch MVSCE : `./start_mvs.sh`
 3. `cat JCL/MACLFTPD.jcl|ncat --send-only -w1 127.0.0.1 3505`
 4. `cat JCL/logon_screen.jcl | ncat --send-only -w1 127.0.0.1 3505`
 5. `cat JCL/terminals.jcl | ncat --send-only -w1 127.0.0.1 3505`
-6. `git clone https://github.com/jake-mainframe/ARBAUTH`
 6. Run the python script : `./upload.py motd.txt`
 7. `cat JCL/upload.jcl | ncat --send-only -w1 127.0.0.1 3505`
 8. Press `quit` in hercules and start it again

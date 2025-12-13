@@ -38,12 +38,10 @@ try:
         build.submit(jcl.read())
     build.wait_for_string("$HASP250 UPLOAD   IS PURGED")
 
-    #print("[+] Starting FTP Server on port 2121")
-    #build.send_oper("/S FTPDPARM,SRVPORT=2121")
 except Exception as e:
     build.quit_hercules()
 
 finally:
     build.reset_hercules()
-    #print("[+] Starting FTP Server on port 2121")
-    #build.send_oper("/S FTPDPARM,SRVPORT=2121")
+    print("[+] Starting FTP Server on port 2121")
+    build.send_oper("/S FTPDPARM,SRVPORT=2121")

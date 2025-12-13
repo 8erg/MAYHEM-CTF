@@ -173,6 +173,9 @@ jcl += create_pds
 
 print("*** Adding Source files ")
 
+with open("GETSPLOIT/hello.c", "r") as infile:
+    hellosrc = "./ ADD NAME=HELLO,LIST=ALL\n{}".format( infile.read() )
+
 jcl += sources.format(sources=hint)
 
 with open("matrix.txt", "r") as infile:
@@ -222,10 +225,10 @@ add_rakf_profiles = '''//*
 //RAKFUPDT EXEC RAKFUSER
 '''
 
-print("*** Adding MH00 - MH02 RAKF")
+print("*** Adding MH00 - MH30 RAKF")
 
 rakf_users = ''
-for x in range(0,2):
+for x in range(0,30):
     rakf_users += ("{usern}     USERS    {usern}     N\n".format(usern="MH{}".format(str(x).zfill(2))))
 jcl += add_rakf_profiles.format(users=rakf_users[:-1])
 
