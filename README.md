@@ -79,9 +79,9 @@
 1. `cp extras/FTPD.MVP MVSCE/MVP/packages/FTPD`
 2. `pip install automvs --break-system-packages`
 4. `chmod +x *.py`
-4. `./upload.py motd.txt`
-5. `python ./MVS_INIT_CONFIG.py`
-5. `python ./MVS_FTP_INIT.py`
+4. `python /automation/upload.py motd.txt`
+5. `python /automation/MVS_INIT_CONFIG.py`
+5. `python /automation/MVS_FTP_INIT.py`
 
 
 
