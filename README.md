@@ -35,6 +35,11 @@
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ```
+
+## Preface
+
+I was suppose to use this to make some mainframe challenges in the nsec26, but I had some difficulties and got caught up with the time. The environment was too big to maintain alone for a ctf, but it's a good playground for anyone looking into exploring it, it runs in a container and you can customize it however you want. Even though there's some features lacking compared to the mainframe you find in banks, it can still provide a good learning ground. I will probably pick it up later on, but I'm leaving it public, so people can try it. Have fun:)
+
 ## Setup
 
 #### Installing Hercules
